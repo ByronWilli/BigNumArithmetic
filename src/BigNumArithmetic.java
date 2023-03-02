@@ -38,13 +38,48 @@ public class BigNumArithmetic {
                 LList second = (LList) myStack.pop();
                 //call add() on both LLists and push result back into stack;
                 myStack.push(add(first, second));
+            } else if(args[i].equals("*")) {
+                LList first = (LList) myStack.pop();
+                LList second = (LList) myStack.pop();
+                int x = 0;
+                //call mult() on both LLists and push result back into stack;
+                myStack.push(mult(first, second , x));
+            }else if (args[i].equals("^")){
+                LList first = (LList) myStack.pop();
+                LList second = (LList) myStack.pop();
+                //call exp() on both LLists and push result back into stack;
+                myStack.push(exp(first, second));
             } else {
-                //If args[i] is not empty space or new line, add it to the LList
-                myLList.append(args[i]);
-                ;
+                //If args[i] is not " ", "+", "*", or "^", then it should be a number.
+                //Change it to an Integer using argsToInt() and then append it to myLList
+                int x = argsToInt(args[i]);
+                myLList.append(x);
             }
         }
-
+    }
+    //this function turns the String value read from command line args[i] to an Integer.
+    public static int argsToInt(String arg){
+        if (arg.equals("0")) {
+            return 0;
+        } else if (arg.equals("1")){
+            return 1;
+        } else if (arg.equals("2")){
+            return 2;
+        }else if (arg.equals("3")){
+            return 3;
+        } else if (arg.equals("4")){
+            return 4;
+        }else if (arg.equals("5")){
+            return 5;
+        } else if (arg.equals("6")){
+            return 6;
+        }else if (arg.equals("7")){
+            return 7;
+        } else if (arg.equals("8")){
+            return 8;
+        }else if (arg.equals("9")){
+            return 9;
+        }
     }
     public static LList add(LList a, LList b){
         LList c = new LList();

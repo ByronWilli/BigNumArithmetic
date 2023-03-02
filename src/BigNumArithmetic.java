@@ -11,7 +11,7 @@ public class BigNumArithmetic {
         // calls the operation functions when it hits an operator
 
 
-        LStack myStack = new LStack();
+
         //Link myLink = new Link();
         //File inputFile = new File("src/input-file");
         //Initiate LStack And LList objects to go into stack

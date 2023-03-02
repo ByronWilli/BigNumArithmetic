@@ -27,7 +27,7 @@ public class BigNumArithmetic {
         Scanner fileIn = new Scanner(inputFile);
         //While file is not empty get next string and use value to determine the action to take
         while (fileIn.hasNext()){
-            String newInput = String.valueOf(fileIn);
+            String newInput = fileIn.next();
             //If there is a new line then push
             if (newInput.equals("\n")){
                 myLList.reverse();
@@ -44,7 +44,7 @@ public class BigNumArithmetic {
 
                 }
             //newInput being an addition sign triggers add() method. pop top 2 LLists from stack to use in add function
-            } else if (newInput.equals("+")) {
+            } else if (newInput.equals("+")){
                 LList first = (LList) myStack.pop();
                 LList second = (LList) myStack.pop();
                 //call add() on both LLists and push result back into stack;
@@ -72,34 +72,34 @@ public class BigNumArithmetic {
 
             } else {
                 //If newInput is not " ", "+", "*", or "^", then it should be a number.
-                //Change it to an Integer using argsToInt() and then append it to myLList
-                int x = argsToInt(newInput);
+                //Change it to an Integer and append it to myLList
+                int x = strToInt(newInput);
                 myLList.append(x);
             }
         }
     return s;
     }
-    //this function turns the String value read from command line args[i] to an Integer.
-    public static int argsToInt(String arg){
-        if (arg.equals("0")) {
+    //this function turns the String value read from file to an Integer.
+    public static int strToInt(String x) {
+        if (x.equals("0")) {
             return 0;
-        } else if (arg.equals("1")){
+        } else if (x.equals("1")){
             return 1;
-        } else if (arg.equals("2")){
+        } else if (x.equals("2")){
             return 2;
-        }else if (arg.equals("3")){
+        }else if (x.equals("3")){
             return 3;
-        } else if (arg.equals("4")){
+        } else if (x.equals("4")){
             return 4;
-        }else if (arg.equals("5")){
+        }else if (x.equals("5")){
             return 5;
-        } else if (arg.equals("6")){
+        } else if (x.equals("6")){
             return 6;
-        }else if (arg.equals("7")){
+        }else if (x.equals("7")){
             return 7;
-        } else if (arg.equals("8")){
+        } else if (x.equals("8")){
             return 8;
-        }else if (arg.equals("9")){
+        }else if (x.equals("9")){
             return 9;
         } else {
             return 0;

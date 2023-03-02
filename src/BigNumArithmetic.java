@@ -12,24 +12,47 @@ public class BigNumArithmetic {
 
 
         LStack myStack = new LStack();
-        Link myLink = new Link();
+        //Link myLink = new Link();
         File inputFile = new File("src/input-file");
         Scanner fileIn = new Scanner(inputFile);
-        while (fileIn.hasNext()){
-            char
-            Link myLink = new Link(fileIn);
+        //while (fileIn.hasNext()){
+          //  char
+            //Link myLink = new Link(fileIn);
 
-            myStack.push(fileIn);
-
+            //myStack.push(fileIn);
+        //}
         }
 
-    }
+
     public static LList add(LList a, LList b){
         LList c = new LList();
         // Append zeros to the shorter number until numbers are the same size
+        if(a.length()>b.length()){
+            int i = a.length()-b.length();
+            for (int j=0; j < i; j++) {
+                b.append(0);
+            }
+        }
+        if(b.length()>a.length()){
+            int i = b.length()-a.length();
+            for (int j=0; j < i; j++) {
+                a.append(0);
+            }
+        }
         // Loop through the lists, adding each digit and appending to a new linked list, carrying any remainder
-        // Handles adding a 1 to the linked list if there's still a remainder after the last operation
-        // returns the new linked list
+        int r = 0;
+        for (int i = 0; i < a.length(); i++) {
+            int t = (int)a.get(i) + (int) b.get(i) + r;
+            // Handles adding a 1 to the linked list if there's still a remainder after the last operation
+            if (t>9){
+                t-=10;
+                r=1;
+            }
+            c.append(t);
+        }
+        if (r == 1){
+            c.append(1);
+        }
         return c;
     }
 

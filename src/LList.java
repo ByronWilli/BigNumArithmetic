@@ -118,4 +118,9 @@ class LList implements List {
             tail = temp;
         }
     }
+    //Returns the object at a given index
+    public Object get(int index) {
+        moveToPos(index);
+        return getValue();
+    }
 }

@@ -46,4 +46,6 @@ public interface List { // List class ADT
     public boolean isEmpty();
     //reverses the order of the list
     public void reverse();
+    //Returns the object at a given index
+    public Object get(int index);
 }

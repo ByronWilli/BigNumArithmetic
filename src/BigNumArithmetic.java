@@ -23,9 +23,18 @@ public class BigNumArithmetic {
         //}
         }
 
-
+    public static String toString(LList a){
+        String s = "";
+        for (int i = a.length()-1; i > -1; i--) {
+            s += a.get(i);
+        }
+        return s;
+    }
     public static LList add(LList a, LList b){
         LList c = new LList();
+        //handle adding zero
+        if ((int)a.get(0) == 0&&a.length()==1){return b;}
+        if ((int)b.get(0) == 0&&b.length()==1){return a;}
         // Append zeros to the shorter number until numbers are the same size
         if(a.length()>b.length()){
             int i = a.length()-b.length();
@@ -54,6 +63,7 @@ public class BigNumArithmetic {
         if (r == 1){
             c.append(1);
         }
+        System.out.println(toString(c));
         return c;
     }
 
@@ -89,11 +99,19 @@ public class BigNumArithmetic {
         // Returns a recursive call, addition (linked list, multiplication(original list, other original list, digit +1))
         return add(c, mult(a,b,i));
     }
-    public static LList exp(LList a, LList b){
+    public static LList exp(LList a, int b){
         LList c = new LList();
-        // If the exponent = 1, return the number
+        if (b==1) {
+            // If the exponent = 1, return the number
+            return a;
+        }
         // if the exponent is odd, return mult(x, exp(x,n-1))
+        if (b % 2 == 1){
+            b--;
+            return mult(a,exp(a,b), 0);
+        }
         // otherwise, return mult (exp(x, n/2) exp(x, n/2))
-        return c;
+        b /= 2;
+        return mult(exp(a, b),exp(a, b), 0);
     }
 }

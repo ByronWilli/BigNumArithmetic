@@ -42,21 +42,67 @@ public class BigNumArithmetic {
     public static LList add(LList a, LList b){
         LList c = new LList();
         // Append zeros to the shorter number until numbers are the same size
+        if(a.length()>b.length()){
+            int i = a.length()-b.length();
+            for (int j=0; j < i; j++) {
+                b.append(0);
+            }
+        }
+        if(b.length()>a.length()){
+            int i = b.length()-a.length();
+            for (int j=0; j < i; j++) {
+                a.append(0);
+            }
+        }
         // Loop through the lists, adding each digit and appending to a new linked list, carrying any remainder
-        // Handles adding a 1 to the linked list if there's still a remainder after the last operation
-        // returns the new linked list
+        int r = 0;
+        for (int i = 0; i < a.length(); i++) {
+            int t = (int)a.get(i) + (int) b.get(i) + r;
+            // Handles adding a 1 to the linked list if there's still a remainder after the last operation
+            if (t>9){
+                t-=10;
+                r=1;
+            }
+            c.append(t);
+        }
+        // handling if there's a remainder
+        if (r == 1){
+            c.append(1);
+        }
         return c;
     }
 
     public static LList mult(LList a, LList b, int i){
         LList c = new LList();
-        // If curr = null return 0
-        // multiplies the digit of the first number equal to the counter int by each digit of the second
-        // Appends the results of to a new list
-        // adds the remainder to the list if there's still a remainder after the last operation
+        // If at the end of the list return 1
+        if (i == a.length()){
+            c.append(0);
+            return c;
+        }
         // Adds zeros to the front of the new linked list equal to the int
+        for (int k = i; k > 0 ; k--) {
+            c.append(0);
+        }
+        // multiplies the digit of the first number equal to the counter int by each digit of the second
+        int r = 0;
+        for (int j = 0; j < b.length(); j++) {
+            int t =((int)a.get(i))*((int)b.get(j)) + r;
+            r=0;
+            while (t > 9) {
+                t -= 10;
+                r++;
+
+            }
+            // Appends the results of to a new list
+            c.append(t);
+        }
+        if (r>=0){
+            // adds the remainder to the list if there's still a remainder after the last operation
+            c.append(r);
+        }
+        i++;
         // Returns a recursive call, addition (linked list, multiplication(original list, other original list, digit +1))
-        return c;
+        return add(c, mult(a,b,i));
     }
     public static LList exp(LList a, LList b){
         LList c = new LList();

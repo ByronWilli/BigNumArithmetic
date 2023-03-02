@@ -6,14 +6,7 @@ import static org.junit.Assert.*;
  * CPSC 340 Project 2
  */
 public class BigNumArithmeticTest {
-    //Turns an LList into a string for testing purposes
-    public String toString(LList a){
-        String s = "";
-        for (int i = a.length()-1; i > -1; i--) {
-            s += a.get(i);
-        }
-        return s;
-    }
+
     //Tests the addition function
     @Test
     public void addTest(){
@@ -23,7 +16,7 @@ public class BigNumArithmeticTest {
         a.append(9);
         a.append(9);
         b.append(1);
-        assertEquals("100", toString(bn.add(a,b)));
+        assertEquals("100", bn.toString(bn.add(a,b)));
     }
     @Test
     public void multTest(){
@@ -35,7 +28,7 @@ public class BigNumArithmeticTest {
         b.append(3);
         b.append(2);
         b.append(1);
-        assertEquals("12177",  toString(bn.mult(a,b, 0)));
+        assertEquals("12177",  bn.toString(bn.mult(a,b, 0)));
     }
     @Test
     public void expTest(){
@@ -44,11 +37,11 @@ public class BigNumArithmeticTest {
         int b = 5;
         a.append(0);
         a.append(2);
-        //assertEquals(toString(bn.exp(a,b)), "3200000" );
+        assertEquals(bn.toString(bn.exp(a,b)), "3200000" );
         b = 4;
-        assertEquals(toString(bn.exp(a,b)), "160000" );
+        assertEquals(bn.toString(bn.exp(a,b)), "160000" );
         b = 1;
-        assertEquals(toString(bn.exp(a,b)), "20" );
+        assertEquals(bn.toString(bn.exp(a,b)), "20" );
 
     }
 

@@ -3,7 +3,16 @@ import java.util.Scanner;
 
 public class BigNumArithmetic {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
+        try {
+            System.out.println(process(args[0]));
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to find file");
+        }
+
+    }
+
+    public static String process(String s) throws FileNotFoundException {
         //creates a stack
         // reads the file, creating a new linked list when it hits the first non zero digit
         // Appends every sig digit to the linked list as an int
@@ -14,7 +23,7 @@ public class BigNumArithmetic {
         LStack myStack = new LStack();
         LList myLList = new LList();
         //Set the file path to command line input args[0]
-        File inputFile = new File(args[0]);
+        File inputFile = new File(s);
         Scanner fileIn = new Scanner(inputFile);
         //While file is not empty get next string and use value to determine the action to take
         while (fileIn.hasNext()){
@@ -49,18 +58,18 @@ public class BigNumArithmetic {
             }else if (newInput.equals("^")){
                 LList first = (LList) myStack.pop();
                 LList second = (LList) myStack.pop();
-                /**first.reverse();
+                //converts LList to an int
                 first.moveToStart();
-                int len = first.length();
-                int expNum = 0;
-                for (int i=0; i<len; i++){
-                    int value = (Integer) first.getValue();
-                    expNum = expNum + (value * (10**i));
-                }*///
+                int expNum = 1;
+                int finalNum = 0;
+                while(first.getValue()!=null){
+                    finalNum += ((int)first.getValue() * expNum);
+                    expNum *= 10;
+                    first.next();
+                }
                 //call exp() on both LLists and push result back into stack;
-                myStack.push(exp(second, second));
-                //call exp() on both LLists and push result back into stack;
-                myStack.push(exp(first, second));
+                myStack.push(exp(second, finalNum));
+
             } else {
                 //If newInput is not " ", "+", "*", or "^", then it should be a number.
                 //Change it to an Integer using argsToInt() and then append it to myLList
@@ -68,6 +77,7 @@ public class BigNumArithmetic {
                 myLList.append(x);
             }
         }
+    return s;
     }
     //this function turns the String value read from command line args[i] to an Integer.
     public static int argsToInt(String arg){
@@ -177,5 +187,13 @@ public class BigNumArithmetic {
         // otherwise, return mult (exp(x, n/2) exp(x, n/2))
         b /= 2;
         return mult(exp(a, b),exp(a, b), 0);
+    }
+    //Turns an LList into a string for testing purposes
+    public static String toString(LList a){
+        String s = "";
+        for (int i = a.length()-1; i > -1; i--) {
+            s += a.get(i);
+        }
+        return s;
     }
 }

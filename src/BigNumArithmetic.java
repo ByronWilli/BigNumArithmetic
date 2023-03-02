@@ -10,21 +10,21 @@ public class BigNumArithmetic {
         // Reverses the list and pushes that linked list when it hits any char other than 0-9
         // calls the operation functions when it hits an operator
 
-
-        LStack myStack = new LStack();
-        //Link myLink = new Link();
-        //File inputFile = new File("src/input-file");
         //Initiate LStack And LList objects to go into stack
         LStack myStack = new LStack();
         LList myLList = new LList();
-        //For each instance of args do necessary step
-        for (int i=0; i<args.length; i++){
+        //Set the file path to command line input args[0]
+        File inputFile = new File(args[0]);
+        Scanner fileIn = new Scanner(inputFile);
+        //While file is not empty get next string and use value to determine the action to take
+        while (fileIn.hasNext()){
+            String newInput = String.valueOf(fileIn);
             //If there is a new line then push
-            if (args[i].equals("\n")){
+            if (newInput.equals("\n")){
                 myLList.reverse();
             //Every empty space pushes LList to Stack
-            } else if (args[i].equals(" ")){
-                //check if LList is empty. If so continue to next args[i]
+            } else if (newInput.equals(" ")){
+                //check if LList is empty. If so continue to next file input
                 if(myLList.isEmpty()){
                     continue;
                 } else {
@@ -34,27 +34,37 @@ public class BigNumArithmetic {
                     myLList.clear();
 
                 }
-            //args[i] addition sign triggers add() method. pop top 2 LLists from stack to use in add function
-            } else if (args[i].equals("+")) {
+            //newInput being an addition sign triggers add() method. pop top 2 LLists from stack to use in add function
+            } else if (newInput.equals("+")) {
                 LList first = (LList) myStack.pop();
                 LList second = (LList) myStack.pop();
                 //call add() on both LLists and push result back into stack;
                 myStack.push(add(first, second));
-            } else if(args[i].equals("*")) {
+            } else if(newInput.equals("*")) {
                 LList first = (LList) myStack.pop();
                 LList second = (LList) myStack.pop();
                 int x = 0;
                 //call mult() on both LLists and push result back into stack;
                 myStack.push(mult(first, second , x));
-            }else if (args[i].equals("^")){
+            }else if (newInput.equals("^")){
                 LList first = (LList) myStack.pop();
                 LList second = (LList) myStack.pop();
+                /**first.reverse();
+                first.moveToStart();
+                int len = first.length();
+                int expNum = 0;
+                for (int i=0; i<len; i++){
+                    int value = (Integer) first.getValue();
+                    expNum = expNum + (value * (10**i));
+                }*/
+                //call exp() on both LLists and push result back into stack;
+                myStack.push(exp(second, second));
                 //call exp() on both LLists and push result back into stack;
                 myStack.push(exp(first, second));
             } else {
-                //If args[i] is not " ", "+", "*", or "^", then it should be a number.
+                //If newInput is not " ", "+", "*", or "^", then it should be a number.
                 //Change it to an Integer using argsToInt() and then append it to myLList
-                int x = argsToInt(args[i]);
+                int x = argsToInt(newInput);
                 myLList.append(x);
             }
         }

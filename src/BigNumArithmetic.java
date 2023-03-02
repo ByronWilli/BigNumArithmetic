@@ -17,7 +17,7 @@ public class BigNumArithmetic {
         LList myLList = new LList();
         //For each instance of args do necessary step
         for (int i=0; i<args.length; i++){
-            //if there is a new line then push
+            //If there is a new line then push
             if (args[i].equals("\n")){
                 myLList.reverse();
             //Every empty space pushes LList to Stack
@@ -25,13 +25,19 @@ public class BigNumArithmetic {
                 //check if LList is empty. If so continue to next args[i]
                 if(myLList.isEmpty()){
                     continue;
-                }else {
+                } else {
                     //LList is not empty, Therefore, reverse & push LList to stack. clear() so new LList can be created.
                     myLList.reverse();
                     myStack.push(myLList);
                     myLList.clear();
 
                 }
+            //args[i] addition sign triggers add() method. pop top 2 LLists from stack to use in add function
+            } else if (args[i].equals("+")) {
+                LList first = (LList) myStack.pop();
+                LList second = (LList) myStack.pop();
+                //call add() on both LLists and push result back into stack;
+                myStack.push(add(first, second));
             } else {
                 //If args[i] is not empty space or new line, add it to the LList
                 myLList.append(args[i]);

@@ -18,7 +18,7 @@ public class BigNumArithmetic {
         Scanner fileIn = new Scanner(inputFile);
         //While file is not empty get next string and use value to determine the action to take
         while (fileIn.hasNext()){
-            String newInput = String.valueOf(fileIn);
+            String newInput = fileIn.next();
             //If there is a new line then push
             if (newInput.equals("\n")){
                 myLList.reverse();
@@ -35,7 +35,7 @@ public class BigNumArithmetic {
 
                 }
             //newInput being an addition sign triggers add() method. pop top 2 LLists from stack to use in add function
-            } else if (newInput.equals("+")) {
+            } else if (newInput.equals("+")){
                 LList first = (LList) myStack.pop();
                 LList second = (LList) myStack.pop();
                 //call add() on both LLists and push result back into stack;
@@ -46,55 +46,65 @@ public class BigNumArithmetic {
                 int x = 0;
                 //call mult() on both LLists and push result back into stack;
                 myStack.push(mult(first, second , x));
+            // '^' triggers exp() method. Pop top two values from stack. (LList second ^ LList first)
             }else if (newInput.equals("^")){
                 LList first = (LList) myStack.pop();
                 LList second = (LList) myStack.pop();
-                /**first.reverse();
-                first.moveToStart();
+                //exp() method parameters are (LList and int) need to convert values in "LList first" to one Integer
+                //Convert values of elements to back to string
+                first.reverse();
                 int len = first.length();
-                int expNum = 0;
                 for (int i=0; i<len; i++){
-                    int value = (Integer) first.getValue();
-                    expNum = expNum + (value * (10**i));
-                }*///
-                //call exp() on both LLists and push result back into stack;
-                myStack.push(exp(second, second));
-                //call exp() on both LLists and push result back into stack;
-                myStack.push(exp(first, second));
+                    first.moveToPos(i);
+                    char value = (Character) first.getValue();
+                    first.remove();
+                    first.insert(value);
+                }
+                //Put all number values of first LList together as one integer->LListfirst = {1,2,3} == int expNum = 123
+                int expNum = 0;
+                String x = (String) first.getValue();
+                for (int i=1; i<len;i++){
+                    first.moveToPos(i);
+                    x = x + (String) first.getValue();
+                }
+                expNum = Integer.parseInt(x);
+                //Call exp() on both LLists and push result back into stack.
+                myStack.push(exp(second, expNum));
             } else {
                 //If newInput is not " ", "+", "*", or "^", then it should be a number.
-                //Change it to an Integer using argsToInt() and then append it to myLList
-                int x = argsToInt(newInput);
+                //Change it to an Integer and append it to myLList
+                int x = strToInt(newInput);
                 myLList.append(x);
             }
         }
     }
-    //this function turns the String value read from command line args[i] to an Integer.
-    public static int argsToInt(String arg){
-        if (arg.equals("0")) {
+    //this function turns the String value read from file to an Integer.
+    public static int strToInt(String x) {
+        if (x.equals("0")) {
             return 0;
-        } else if (arg.equals("1")){
+        } else if (x.equals("1")){
             return 1;
-        } else if (arg.equals("2")){
+        } else if (x.equals("2")){
             return 2;
-        }else if (arg.equals("3")){
+        }else if (x.equals("3")){
             return 3;
-        } else if (arg.equals("4")){
+        } else if (x.equals("4")){
             return 4;
-        }else if (arg.equals("5")){
+        }else if (x.equals("5")){
             return 5;
-        } else if (arg.equals("6")){
+        } else if (x.equals("6")){
             return 6;
-        }else if (arg.equals("7")){
+        }else if (x.equals("7")){
             return 7;
-        } else if (arg.equals("8")){
+        } else if (x.equals("8")){
             return 8;
-        }else if (arg.equals("9")){
+        }else if (x.equals("9")){
             return 9;
         } else {
             return 0;
         }
     }
+
     public static LList add(LList a, LList b){
         LList c = new LList();
         //handle adding zero

@@ -155,7 +155,7 @@ public class BigNumArithmetic {
             // Appends the results of to a new list
             c.append(t);
         }
-        if (r>=0){
+        if (r>0){
             // adds the remainder to the list if there's still a remainder after the last operation
             c.append(r);
         }

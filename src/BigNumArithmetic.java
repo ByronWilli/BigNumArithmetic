@@ -10,6 +10,8 @@ public class BigNumArithmetic {
         // Reverses the list and pushes that linked list when it hits any char other than 0-9
         // calls the operation functions when it hits an operator
 
+
+        LStack myStack = new LStack();
         //Link myLink = new Link();
         //File inputFile = new File("src/input-file");
         //Initiate LStack And LList objects to go into stack
@@ -85,6 +87,9 @@ public class BigNumArithmetic {
     }
     public static LList add(LList a, LList b){
         LList c = new LList();
+        //handle adding zero
+        if ((int)a.get(0) == 0&&a.length()==1){return b;}
+        if ((int)b.get(0) == 0&&b.length()==1){return a;}
         // Append zeros to the shorter number until numbers are the same size
         if(a.length()>b.length()){
             int i = a.length()-b.length();
@@ -148,12 +153,19 @@ public class BigNumArithmetic {
         // Returns a recursive call, addition (linked list, multiplication(original list, other original list, digit +1))
         return add(c, mult(a,b,i));
     }
-    public static LList exp(LList a, LList b){
+    public static LList exp(LList a, int b){
         LList c = new LList();
-        // If the exponent = 1, return the number
+        if (b==1) {
+            // If the exponent = 1, return the number
+            return a;
+        }
         // if the exponent is odd, return mult(x, exp(x,n-1))
+        if (b % 2 == 1){
+            b--;
+            return mult(a,exp(a,b), 0);
+        }
         // otherwise, return mult (exp(x, n/2) exp(x, n/2))
-        return c;
+        b /= 2;
+        return mult(exp(a, b),exp(a, b), 0);
     }
-
 }

@@ -23,7 +23,7 @@ public class BigNumArithmeticTest {
         a.append(9);
         a.append(9);
         b.append(1);
-        assertEquals(toString(bn.add(a,b)), "100" );
+        assertEquals("100", toString(bn.add(a,b)));
     }
     @Test
     public void multTest(){
@@ -35,8 +35,21 @@ public class BigNumArithmeticTest {
         b.append(3);
         b.append(2);
         b.append(1);
-        assertEquals(toString(bn.mult(a,b, 0)), "12177" );
+        assertEquals("12177",  toString(bn.mult(a,b, 0)));
     }
+    @Test
+    public void expTest(){
+        BigNumArithmetic bn = new BigNumArithmetic();
+        LList a = new LList();
+        int b = 5;
+        a.append(0);
+        a.append(2);
+        //assertEquals(toString(bn.exp(a,b)), "3200000" );
+        b = 4;
+        assertEquals(toString(bn.exp(a,b)), "160000" );
+        b = 1;
+        assertEquals(toString(bn.exp(a,b)), "20" );
 
+    }
 
 }

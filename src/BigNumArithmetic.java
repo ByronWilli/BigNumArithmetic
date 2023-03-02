@@ -56,7 +56,7 @@ public class BigNumArithmetic {
                 for (int i=0; i<len; i++){
                     int value = (Integer) first.getValue();
                     expNum = expNum + (value * (10**i));
-                }*/
+                }*///
                 //call exp() on both LLists and push result back into stack;
                 myStack.push(exp(second, second));
                 //call exp() on both LLists and push result back into stack;

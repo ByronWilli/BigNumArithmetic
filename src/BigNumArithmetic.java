@@ -34,7 +34,8 @@ public class BigNumArithmetic {
                 }
             } else {
                 //If args[i] is not empty space or new line, add it to the LList
-                myLList.append(args[i]);;
+                myLList.append(args[i]);
+                ;
             }
         }
 

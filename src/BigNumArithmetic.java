@@ -10,17 +10,32 @@ public class BigNumArithmetic {
         // Reverses the list and pushes that linked list when it hits any char other than 0-9
         // calls the operation functions when it hits an operator
 
-
+        //Link myLink = new Link();
+        //File inputFile = new File("src/input-file");
+        //Initiate LStack And LList objects to go into stack
         LStack myStack = new LStack();
-        Link myLink = new Link();
-        File inputFile = new File("src/input-file");
-        Scanner fileIn = new Scanner(inputFile);
-        while (fileIn.hasNext()){
-            char
-            Link myLink = new Link(fileIn);
+        LList myLList = new LList();
+        //For each instance of args do necessary step
+        for (int i=0; i<args.length; i++){
+            //if there is a new line then push
+            if (args[i].equals("\n")){
+                myLList.reverse();
+            //Every empty space pushes LList to Stack
+            } else if (args[i].equals(" ")){
+                //check if LList is empty. If so continue to next args[i]
+                if(myLList.isEmpty()){
+                    continue;
+                }else {
+                    //LList is not empty, Therefore, reverse & push LList to stack. clear() so new LList can be created.
+                    myLList.reverse();
+                    myStack.push(myLList);
+                    myLList.clear();
 
-            myStack.push(fileIn);
-
+                }
+            } else {
+                //If args[i] is not empty space or new line, add it to the LList
+                myLList.append(args[i]);;
+            }
         }
 
     }

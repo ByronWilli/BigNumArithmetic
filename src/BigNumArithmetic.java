@@ -79,6 +79,8 @@ public class BigNumArithmetic {
             return 8;
         }else if (arg.equals("9")){
             return 9;
+        } else {
+            return 0;
         }
     }
     public static LList add(LList a, LList b){

@@ -13,22 +13,40 @@ public class BigNumArithmetic {
 
         LStack myStack = new LStack();
         //Link myLink = new Link();
-        File inputFile = new File("src/input-file");
-        Scanner fileIn = new Scanner(inputFile);
-        //while (fileIn.hasNext()){
-          //  char
-            //Link myLink = new Link(fileIn);
+        //File inputFile = new File("src/input-file");
+        //Initiate LStack And LList objects to go into stack
+        LStack myStack = new LStack();
+        LList myLList = new LList();
+        //For each instance of args do necessary step
+        for (int i=0; i<args.length; i++){
+            //If there is a new line then push
+            if (args[i].equals("\n")){
+                myLList.reverse();
+            //Every empty space pushes LList to Stack
+            } else if (args[i].equals(" ")){
+                //check if LList is empty. If so continue to next args[i]
+                if(myLList.isEmpty()){
+                    continue;
+                } else {
+                    //LList is not empty, Therefore, reverse & push LList to stack. clear() so new LList can be created.
+                    myLList.reverse();
+                    myStack.push(myLList);
+                    myLList.clear();
 
-            //myStack.push(fileIn);
-        //}
+                }
+            //args[i] addition sign triggers add() method. pop top 2 LLists from stack to use in add function
+            } else if (args[i].equals("+")) {
+                LList first = (LList) myStack.pop();
+                LList second = (LList) myStack.pop();
+                //call add() on both LLists and push result back into stack;
+                myStack.push(add(first, second));
+            } else {
+                //If args[i] is not empty space or new line, add it to the LList
+                myLList.append(args[i]);
+                ;
+            }
         }
 
-    public static String toString(LList a){
-        String s = "";
-        for (int i = a.length()-1; i > -1; i--) {
-            s += a.get(i);
-        }
-        return s;
     }
     public static LList add(LList a, LList b){
         LList c = new LList();
@@ -63,7 +81,6 @@ public class BigNumArithmetic {
         if (r == 1){
             c.append(1);
         }
-        System.out.println(toString(c));
         return c;
     }
 

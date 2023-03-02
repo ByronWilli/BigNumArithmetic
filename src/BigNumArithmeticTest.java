@@ -25,5 +25,18 @@ public class BigNumArithmeticTest {
         b.append(1);
         assertEquals(toString(bn.add(a,b)), "100" );
     }
+    @Test
+    public void multTest(){
+        BigNumArithmetic bn = new BigNumArithmetic();
+        LList a = new LList();
+        LList b = new LList();
+        a.append(9);
+        a.append(9);
+        b.append(3);
+        b.append(2);
+        b.append(1);
+        assertEquals(toString(bn.mult(a,b, 0)), "12177" );
+    }
+
 
 }

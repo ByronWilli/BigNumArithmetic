@@ -50,6 +50,7 @@ public class BigNumArithmetic {
             }
             c.append(t);
         }
+        // handling if there's a remainder
         if (r == 1){
             c.append(1);
         }
@@ -58,13 +59,35 @@ public class BigNumArithmetic {
 
     public static LList mult(LList a, LList b, int i){
         LList c = new LList();
-        // If curr = null return 0
-        // multiplies the digit of the first number equal to the counter int by each digit of the second
-        // Appends the results of to a new list
-        // adds the remainder to the list if there's still a remainder after the last operation
+        // If at the end of the list return 1
+        if (i == a.length()){
+            c.append(0);
+            return c;
+        }
         // Adds zeros to the front of the new linked list equal to the int
+        for (int k = i; k > 0 ; k--) {
+            c.append(0);
+        }
+        // multiplies the digit of the first number equal to the counter int by each digit of the second
+        int r = 0;
+        for (int j = 0; j < b.length(); j++) {
+            int t =((int)a.get(i))*((int)b.get(j)) + r;
+            r=0;
+            while (t > 9) {
+                t -= 10;
+                r++;
+
+            }
+            // Appends the results of to a new list
+            c.append(t);
+        }
+        if (r>=0){
+            // adds the remainder to the list if there's still a remainder after the last operation
+            c.append(r);
+        }
+        i++;
         // Returns a recursive call, addition (linked list, multiplication(original list, other original list, digit +1))
-        return c;
+        return add(c, mult(a,b,i));
     }
     public static LList exp(LList a, LList b){
         LList c = new LList();
@@ -73,5 +96,4 @@ public class BigNumArithmetic {
         // otherwise, return mult (exp(x, n/2) exp(x, n/2))
         return c;
     }
-
 }

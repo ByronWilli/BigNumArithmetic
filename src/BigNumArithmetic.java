@@ -37,6 +37,7 @@ public class BigNumArithmetic {
                         continue;
                     } else {
                         //LList is not empty, Therefore, reverse & push LList to stack. clear() so new LList can be created.
+                        leadingZeros(myLList);
                         myLList.reverse();
                         expressionDetails += toString(myLList) + " ";
                         myStack.push(myLList);
@@ -82,12 +83,16 @@ public class BigNumArithmetic {
                 } else {
                     //If newInput is not " ", "+", "*", or "^", then it should be a number.
                     //If value is not a leading 0 in number, add it to an Integer and append it to myLList
-                    if (myLList.length() == 0 && c == '0') {
+                    //if (myLList.length)
+                    /**if (myLList.length() == 0 && c == '0') {
                         continue;
                     } else {
-                        int x = charToInt(c);
+                        //int x = (int) c;
+                        int x = (int) charToInt(c);
                         myLList.append(x);
-                    }
+                    }*/
+                    int x = (int) charToInt(c);
+                    myLList.append(x);
                 }
             }
             if (myStack.length() != 1){
@@ -101,8 +106,10 @@ public class BigNumArithmetic {
         }
             return finalLine;
     }
-    //this function turns the String value read from file to an Integer.
-    public static int charToInt(char x) {
+    //This function turns the String value read from file to an Integer.
+    //Only called on number values read from the file into the program.
+    //Corresponding Integer values are returned as an int. While any non number chars return null;
+    public static Object charToInt(char x) {
         if (x=='0') {
             return 0;
         } else if (x=='1'){
@@ -124,7 +131,33 @@ public class BigNumArithmetic {
         }else if (x=='9'){
             return 9;
         } else {
-            return 0;
+            return null;
+        }
+    }
+
+    /**
+     * This function is used to remove any leading zeroes within the LList it is called upon. "00054" will equal "54"
+     * This function also prevents LList with only zero values from being removed completely. "00000" will equal "0"
+     * This must be used when LList is complete, and before reversing the LList.
+     * This function does not return anything but rather changes the LList
+     * @param myLList
+     */
+    public static void leadingZeros(LList myLList){
+        //Loop through the LList. Move current position to the position "i" each time.
+        for (int i=0; i<myLList.length();i++){
+            myLList.moveToPos(i);
+            //If there is only 1 element in LList, do not change anything. Preventing LLists valued 0 from being erased
+            if(myLList.length() == 1){
+                break;
+            //If LList length has more than one element, remove Links until you reach a Link with a non-zero value
+            } else if((int) myLList.getValue() == 0) {
+                myLList.remove();
+                //decrement i back to start of LList
+                i--;
+            } else {
+                //If this link is non-zero break from for loop
+                break;
+            }
         }
     }
     public static LList add(LList a, LList b){

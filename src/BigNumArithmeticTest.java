@@ -21,12 +21,13 @@ public class BigNumArithmeticTest {
         String output = "";
         try {
             fileIn = new Scanner(in);
+            while(fileIn.hasNextLine()){
+                output+= fileIn.nextLine();
+            }
         } catch (FileNotFoundException e) {
             System.out.println("Cannot find test1.out.txt test file");
         }
-        while(fileIn.hasNextLine()){
-            output+= fileIn.nextLine();
-        }
+
         try {
             assertEquals(bn.process("test1.txt"), output);
         } catch (FileNotFoundException e) {

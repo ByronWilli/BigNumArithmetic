@@ -76,7 +76,7 @@ public class BigNumArithmetic {
                         }
                         //call exp() on both LLists and push result back into stack;
                         myStack.push(exp(second, finalNum));
-                        System.out.println(toString(second));
+
                     }
                     expressionDetails +="^ ";
                 } else {

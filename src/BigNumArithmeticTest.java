@@ -29,8 +29,6 @@ public class BigNumArithmeticTest {
         }
 
         try {
-            System.out.println(bn.process("test1.txt"));
-            System.out.println(output);
             assertEquals(bn.process("test1.txt"), output);
         } catch (FileNotFoundException e) {
             System.out.println("Cannot find test1.txt test file");

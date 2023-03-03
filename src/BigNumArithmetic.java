@@ -38,6 +38,7 @@ public class BigNumArithmetic {
                     } else {
                         //LList is not empty, Therefore, reverse & push LList to stack. clear() so new LList can be created.
                         myLList.reverse();
+                        expressionDetails += toString(myLList) + " ";
                         myStack.push(myLList);
                         myLList = new LList();
                     }
@@ -45,15 +46,15 @@ public class BigNumArithmetic {
                 } else if (c == '+') {
                     LList first = (LList) myStack.pop();
                     LList second = (LList) myStack.pop();
-
-                    expressionDetails += second.toString() + " + " + first.toString() + " ";
+                    expressionDetails += "+ ";
                     //call add() on both LLists and push result back into stack;
                     if (first == null || second == null) {badline = true;}
                     if (badline==false){myStack.push(add(first, second));}
+
                 } else if (c == '*') {
                     LList first = (LList) myStack.pop();
                     LList second = (LList) myStack.pop();
-                    expressionDetails += second.toString() + " * " + first.toString() + " ";
+                    expressionDetails += "* ";
                     if (first == null || second == null) {badline = true;}
                     //call mult() on both LLists and push result back into stack;
                     if (badline==false) {myStack.push(mult(first, second, 0));}
@@ -61,22 +62,23 @@ public class BigNumArithmetic {
                 } else if (c == '^') {
                     LList first = (LList) myStack.pop();
                     LList second = (LList) myStack.pop();
+
                     if (first == null || second == null) {badline = true;}
                     //converts LList to an int
                     if (badline==false) {
                         first.moveToStart();
                         int expNum = 1;
                         int finalNum = 0;
-                        while (first.isAtEnd()) {
+                        while (first.isAtEnd()==false) {
                             finalNum += ((int) first.getValue() * expNum);
                             expNum *= 10;
                             first.next();
                         }
-
                         //call exp() on both LLists and push result back into stack;
                         myStack.push(exp(second, finalNum));
+                        System.out.println(toString(second));
                     }
-                    expressionDetails += second.toString() + " * " + first.toString() + " ";
+                    expressionDetails +="^ ";
                 } else {
                     //If newInput is not " ", "+", "*", or "^", then it should be a number.
                     //If value is not a leading 0 in number, add it to an Integer and append it to myLList
@@ -88,13 +90,13 @@ public class BigNumArithmetic {
                     }
                 }
             }
-            if (myStack.length() > 1){
+            if (myStack.length() != 1){
                 badline=true;
             }
             if (badline){
-                finalLine += expressionDetails + " = ";
+                finalLine += expressionDetails + "= ";
             }else {
-                finalLine += expressionDetails + " = " + myStack.topValue().toString();
+                finalLine += expressionDetails + "= " + toString((LList) myStack.pop());
             }
         }
             return finalLine;
@@ -147,14 +149,14 @@ public class BigNumArithmetic {
         int r = 0;
         for (int i = 0; i < a.length(); i++) {
             int t = (int)a.get(i) + (int) b.get(i) + r;
-            // Handles adding a 1 to the linked list if there's still a remainder after the last operation
+            r = 0;
             if (t>9){
                 t-=10;
                 r=1;
             }
             c.append(t);
         }
-        // handling if there's a remainder
+        // handling if there's a remainder after the last opperation
         if (r == 1){
             c.append(1);
         }
@@ -168,7 +170,7 @@ public class BigNumArithmetic {
             c.append(0);
             return c;
         }
-        // Adds zeros to the front of the new linked list equal to the int
+        // Adds zeros to the front of the new linked list equal to the place value we're on
         for (int k = i; k > 0 ; k--) {
             c.append(0);
         }
@@ -194,8 +196,9 @@ public class BigNumArithmetic {
         return add(c, mult(a,b,i));
     }
     public static LList exp(LList a, int b){
-        LList c = new LList();
         if (b==0) {
+            //if the exponent is 0, return 1
+            LList c = new LList();
             c.append(1);
             return c;
         }else if (b==1) {
@@ -214,7 +217,6 @@ public class BigNumArithmetic {
     //Turns an LList into a string for testing purposes
     public static String toString(LList a){
         String s = "";
-        if (a == null){return "";}
         for (int i = a.length()-1; i > -1; i--) {
             s += a.get(i);
         }

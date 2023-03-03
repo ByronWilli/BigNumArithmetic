@@ -22,7 +22,7 @@ public class BigNumArithmeticTest {
         try {
             fileIn = new Scanner(in);
             while(fileIn.hasNextLine()){
-                output+= fileIn.nextLine();
+                output+= fileIn.nextLine() + "\n";
             }
         } catch (FileNotFoundException e) {
             System.out.println("Cannot find output test file");

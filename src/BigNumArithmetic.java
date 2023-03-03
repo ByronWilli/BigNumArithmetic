@@ -99,9 +99,9 @@ public class BigNumArithmetic {
                 badline=true;
             }
             if (badline){
-                finalLine += expressionDetails + "= ";
+                finalLine += expressionDetails + "=\n";
             }else {
-                finalLine += expressionDetails + "= " + toString((LList) myStack.pop());
+                finalLine += expressionDetails + "= " + toString((LList) myStack.pop()) +"\n";
             }
         }
             return finalLine;

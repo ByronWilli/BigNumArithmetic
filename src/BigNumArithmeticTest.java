@@ -3,7 +3,6 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
 import static org.junit.Assert.*;
 
 /**
@@ -12,7 +11,9 @@ import static org.junit.Assert.*;
  */
 public class BigNumArithmeticTest {
 
-    //Tests the process function
+    /**
+     * Tests the process function
+     */
     @Test
     public void processTest(){
         BigNumArithmetic bn = new BigNumArithmetic();
@@ -35,7 +36,9 @@ public class BigNumArithmeticTest {
         }
     }
 
-    //Tests the charToInt function with multiple different values. 0,1,9 and a non-relevant value such as x
+    /**
+     * Tests the charToInt function with multiple different values. 0,1,9 and a non-relevant value such as x
+     */
     @Test
     public void charToIntTest(){
         BigNumArithmetic bn = new BigNumArithmetic();
@@ -50,12 +53,14 @@ public class BigNumArithmeticTest {
 
     }
 
-    //Test the leadingZeros() function on multiple different LLists
-    //Test 1 LList mix = 0,0,0,9,0,5   is changed to 9,0,5
-    //Test 2 LList multipleNonZeros = 1,2 stays the same as there are no leading zeros
-    //Test 3 LList oneNonZero = 5 stays the same as there are no leading zeros
-    //Test 4 oneZero = 0 stays the same, as it is the only Link in LList
-    //Test 5 multipleZeros = 0,0,0,0 is changed to 0 all other links are removed
+    /**
+     * Test the leadingZeros() function on multiple different LList
+     * Test 1 LList mix = 0,0,0,9,0,5   is changed to 9,0,5
+     * Test 2 LList multipleNonZeros = 1,2 stays the same as there are no leading zeros
+     * Test 3 LList oneNonZero = 5 stays the same as there are no leading zeros
+     * Test 4 oneZero = 0 stays the same, as it is the only Link in LList
+     * Test 5 multipleZeros = 0,0,0,0 is changed to 0 all other links are removed
+     */
     @Test
     public void leadingZerosTest(){
         BigNumArithmetic bn = new BigNumArithmetic();
@@ -114,8 +119,10 @@ public class BigNumArithmeticTest {
     }
 
 
-    //Tests the addition function
-    @Test
+    /**
+     * Tests the addition function
+     */
+     @Test
     public void addTest(){
         BigNumArithmetic bn = new BigNumArithmetic();
         LList a = new LList();
@@ -125,6 +132,10 @@ public class BigNumArithmeticTest {
         b.append(1);
         assertEquals("100", bn.toString(bn.add(a,b)));
     }
+
+    /**
+     * multTest()
+     */
     @Test
     public void multTest(){
         BigNumArithmetic bn = new BigNumArithmetic();
@@ -137,6 +148,10 @@ public class BigNumArithmeticTest {
         b.append(1);
         assertEquals("12177",  bn.toString(bn.mult(a,b, 0)));
     }
+
+    /**
+     * expTest()
+     */
     @Test
     public void expTest(){
         BigNumArithmetic bn = new BigNumArithmetic();

@@ -1,9 +1,16 @@
 import java.io.*;
 import java.util.Scanner;
-import java.lang.*;
+//import java.lang.*;
 
+/**
+ * BigNumArithmetic
+ */
 public class BigNumArithmetic {
 
+    /**
+     * main() function
+     * @param args
+     */
     public static void main(String[] args) {
         try {
             System.out.println(process(args[0]));
@@ -13,6 +20,12 @@ public class BigNumArithmetic {
 
     }
 
+    /**
+     * Process
+     * @param s
+     * @return
+     * @throws FileNotFoundException
+     */
     public static String process(String s) throws FileNotFoundException {
 
         //create a String of that will be updated to print
@@ -106,10 +119,11 @@ public class BigNumArithmetic {
         }
             return finalLine;
     }
-    //This function turns the String value read from file to an Integer.
-    //Only called on number values read from the file into the program.
-    //Corresponding Integer values are returned as an int. While any non number chars return null;
-    public static Object charToInt(char x) {
+    /**This function turns the String value read from file to an Integer.
+     * Only called on number values read from the file into the program
+     * Corresponding Integer values are returned as an int. While any non number chars return null;
+    */
+     public static Object charToInt(char x) {
         if (x=='0') {
             return 0;
         } else if (x=='1'){
@@ -160,6 +174,13 @@ public class BigNumArithmetic {
             }
         }
     }
+
+    /**
+     * add()
+     * @param a
+     * @param b
+     * @return
+     */
     public static LList add(LList a, LList b){
         LList c = new LList();
         //handle adding zero
@@ -196,6 +217,13 @@ public class BigNumArithmetic {
         return c;
     }
 
+    /**
+     * mult()
+     * @param a
+     * @param b
+     * @param i
+     * @return
+     */
     public static LList mult(LList a, LList b, int i){
         LList c = new LList();
         // If at the end of the list return 1
@@ -228,6 +256,13 @@ public class BigNumArithmetic {
         // Returns a recursive call, addition (linked list, multiplication(original list, other original list, digit +1))
         return add(c, mult(a,b,i));
     }
+
+    /**
+     * exp()
+     * @param a
+     * @param b
+     * @return
+     */
     public static LList exp(LList a, int b){
         if (b==0) {
             //if the exponent is 0, return 1
@@ -247,7 +282,13 @@ public class BigNumArithmetic {
         b /= 2;
         return mult(exp(a, b),exp(a, b), 0);
     }
-    //Turns an LList into a string for testing purposes
+
+    /**
+     * toString ()
+     * Turns an LList into a string for testing purposes
+     * @param a
+     * @return
+     */
     public static String toString(LList a){
         String s = "";
         for (int i = a.length()-1; i > -1; i--) {

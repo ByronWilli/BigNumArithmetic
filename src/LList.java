@@ -1,24 +1,37 @@
 import java.util.NoSuchElementException;
 
-// Linked list implementation
+/**
+ *  Linked list implementation
+ */
 class LList implements List {
     private Link head;         // Pointer to list header
     private Link tail;         // Pointer to last element
     private Link curr;         // Access to current element
     private int listSize;      // Size of list
 
-    // Constructors
+    /**
+     * LList constructor 1
+     * @param size
+     */
     LList(int size) { this(); }     // Constructor -- Ignore size
+
+    /**
+     * LList Constructor 2
+     */
     LList() { clear(); }
 
-    // Remove all elements
+    /**
+     * Remove all elements
+     */
     public void clear() {
         curr = tail = new Link(null); // Create trailer
         head = new Link(tail);        // Create header
         listSize = 0;
     }
 
-    // Insert "it" at current position
+    /**
+     * Insert "it" at current position
+     */
     public boolean insert(Object it) {
         curr.setNext(new Link(curr.element(), curr.next()));
         curr.setElement(it);
@@ -27,7 +40,11 @@ class LList implements List {
         return true;
     }
 
-    // Append "it" to list
+    /**
+     * Append "it" to list
+     * @param it
+     * @return
+     */
     public boolean append(Object it) {
         tail.setNext(new Link(null));
         tail.setElement(it);
@@ -36,7 +53,11 @@ class LList implements List {
         return true;
     }
 
-    // Remove and return current element
+    /**
+     * Remove and return current element
+     * @return
+     * @throws NoSuchElementException
+     */
     public Object remove () throws NoSuchElementException {
         if (curr == tail) // Nothing to remove
             throw new NoSuchElementException("remove() in LList has current of " + curr + " and size of "
@@ -49,10 +70,19 @@ class LList implements List {
         return it;                              // Return value
     }
 
+    /**
+     * moveToStart
+     */
     public void moveToStart() { curr = head.next(); } // Set curr at list start
+
+    /**
+     * movetoEnd
+     */
     public void moveToEnd() { curr = tail; }          // Set curr at list end
 
-    // Move curr one step left; no change if now at front
+    /**
+     * Move curr one step left; no change if now at front
+     */
     public void prev() {
         if (head.next() == curr) return; // No previous element
         Link temp = head;
@@ -61,13 +91,22 @@ class LList implements List {
         curr = temp;
     }
 
-    // Move curr one step right; no change if now at end
+    /**
+     * Move curr one step right; no change if now at end
+     */
     public void next() { if (curr != tail) curr = curr.next(); }
 
+    /**
+     * length()
+     * @return
+     */
     public int length() { return listSize; } // Return list length
 
 
-    // Return the position of the current element
+    /**
+     * Return the position of the current element
+     * @return
+     */
     public int currPos() {
         Link temp = head.next();
         int i;
@@ -76,7 +115,9 @@ class LList implements List {
         return i;
     }
 
-    // Move down list to "pos" position
+    /**
+     * Move down list to "pos" position
+     */
     public boolean moveToPos(int pos) {
         if ((pos < 0) || (pos > listSize)) return false;
         curr = head.next();
@@ -84,10 +125,15 @@ class LList implements List {
         return true;
     }
 
-    // Return true if current position is at end of the list
+    /**
+     *  Return true if current position is at end of the list
+     * @return
+     */
     public boolean isAtEnd() { return curr == tail; }
 
-    // Return current element value.
+    /**
+     * Return current element value.
+     */
     public Object getValue() throws NoSuchElementException {
         if (curr == tail) // No current element
             throw new NoSuchElementException("getvalue() in LList has current of " + curr + " and size of "
@@ -95,10 +141,15 @@ class LList implements List {
         return curr.element();
     }
 
-    // Check if the list is empty
+    /**
+     * Check if the list is empty
+     * @return
+     */
     public boolean isEmpty() { return listSize == 0; }
 
-    //reverses the list
+    /**
+     * reverses the list
+     */
     public void reverse(){
         if (listSize>1) {
             Link prev = head;
@@ -118,7 +169,10 @@ class LList implements List {
             tail = temp;
         }
     }
-    //Returns the object at a given index
+
+    /**
+     * Returns the object at a given index
+     */
     public Object get(int index) {
         moveToPos(index);
         return getValue();

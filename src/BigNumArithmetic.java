@@ -13,11 +13,6 @@ public class BigNumArithmetic {
     }
 
     public static String process(String s) throws FileNotFoundException {
-        //creates a stack
-        // reads the file, creating a new linked list when it hits the first non zero digit
-        // Appends every sig digit to the linked list as an int
-        // Reverses the list and pushes that linked list when it hits any char other than 0-9
-        // calls the operation functions when it hits an operator
 
         //Initiate LStack And LList objects to go into stack
         LStack myStack = new LStack();

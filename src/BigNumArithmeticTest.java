@@ -1,4 +1,9 @@
 import org.junit.Test;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import static org.junit.Assert.*;
 
 /**
@@ -6,6 +11,29 @@ import static org.junit.Assert.*;
  * CPSC 340 Project 2
  */
 public class BigNumArithmeticTest {
+
+    //Tests the process function
+    @Test
+    public void processTest(){
+        BigNumArithmetic bn = new BigNumArithmetic();
+        File in = new File("test1.out.txt");
+        Scanner fileIn = null;
+        String output = "";
+        try {
+            fileIn = new Scanner(in);
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot find test1.out.txt test file");
+        }
+        while(fileIn.hasNextLine()){
+            output+= fileIn.nextLine();
+        }
+        try {
+            assertEquals(bn.process("test1.txt"), output);
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot find test1.txt test file");
+        }
+    }
+
 
     //Tests the addition function
     @Test

@@ -86,8 +86,8 @@ public class BigNumArithmetic {
             }
         }
         expressionDetails += "= " + myStack.topValue().toString();
-        System.out.println(expressionDetails);
-    return s;
+        //System.out.println(expressionDetails);
+    return expressionDetails;
     }
     //this function turns the String value read from file to an Integer.
     public static int strToInt(String x) {

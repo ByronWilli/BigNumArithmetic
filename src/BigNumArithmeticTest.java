@@ -25,13 +25,13 @@ public class BigNumArithmeticTest {
                 output+= fileIn.nextLine();
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Cannot find test1.out.txt test file");
+            System.out.println("Cannot find output test file");
         }
 
         try {
-            assertEquals(bn.process("test1.txt"), output);
+            assertEquals(bn.process("input-file"), output);
         } catch (FileNotFoundException e) {
-            System.out.println("Cannot find test1.txt test file");
+            System.out.println("Cannot find input test file");
         }
     }
 

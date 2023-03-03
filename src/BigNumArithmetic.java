@@ -1,15 +1,19 @@
 import java.io.*;
 import java.util.Scanner;
-//import java.lang.*;
 
 /**
- * BigNumArithmetic
+ * BigNumArithmetic class holds the main() method to run the code.
+ * Along with multiple functions to complete project requirements.
+ * @author Byron Williamson Ted Stanton
+ * @version 2023-03-03
  */
 public class BigNumArithmetic {
 
     /**
-     * main() function
-     * @param args
+     * main() function reads the file passed in from command line
+     * Calls process() to process the input of the file as needed.
+     * The results of process() are printed back to user.
+     * @param args command line argument
      */
     public static void main(String[] args) {
         try {
@@ -17,29 +21,33 @@ public class BigNumArithmetic {
         } catch (FileNotFoundException e) {
             System.out.println("Unable to find file");
         }
-
     }
-
     /**
-     * Process
-     * @param s
-     * @return
-     * @throws FileNotFoundException
+     * Process() is called in the main() method. To run take each input from the file and process it as needed.
+     * numbers are pushed to the stack, while operators call specific functions such as add(), mult(), and exp()
+     * to find the answer to the final equation.
+     * A String is returned to main containing the expression details and answer to the equation.
+     * @param s a string which is passed on the command line
+     * @return String which contatins expression details and final answer
+     * @throws FileNotFoundException if the String passed as parameter is not found as a valid file path.
      */
     public static String process(String s) throws FileNotFoundException {
-
-        //create a String of that will be updated to print
+        //Create a String of that will be updated to print.
         String finalLine = "";
-        //Set the file path to command line input args[0]
+        //Set the file path to command line input args[0].
         File inputFile = new File(s);
         Scanner fileIn = new Scanner(inputFile);
-        //While file is not empty get next string and use value to determine the action to take
+        //While file is not empty get next string.
         while (fileIn.hasNextLine()) {
+            //Create LStack, LList, String for expressions
             LStack myStack = new LStack();
             LList myLList = new LList();
             String expressionDetails = "";
+            //create boolean to check for valid line inputs
             Boolean badline=false;
+            //newLine is the char the most recent input read from file
             String newInput = fileIn.nextLine();
+            //Convert newLine to a char array. Then loop through each char
             char[] line = newInput.toCharArray();
             for (int i = 0; i < newInput.length(); i++) {
                 //Every empty space pushes LList to Stack
@@ -49,61 +57,58 @@ public class BigNumArithmetic {
                     if (myLList.isEmpty()) {
                         continue;
                     } else {
-                        //LList is not empty, Therefore, reverse & push LList to stack. clear() so new LList can be created.
+                        //LList is not empty, reverse() & push() LList to stack.
+                        //clear() so new LList can be created.
                         leadingZeros(myLList);
                         myLList.reverse();
                         expressionDetails += toString(myLList) + " ";
                         myStack.push(myLList);
                         myLList = new LList();
                     }
-                    //newInput being an addition sign triggers add() method. pop top 2 LLists from stack to use in add function
+                    //newInput being "+" triggers add() method.
+                    //pop() top 2 LLists from stack to use in add() function
                 } else if (c == '+') {
                     LList first = (LList) myStack.pop();
                     LList second = (LList) myStack.pop();
                     expressionDetails += "+ ";
                     //call add() on both LLists and push result back into stack;
-                    if (first == null || second == null) {badline = true;}
-                    if (badline==false){myStack.push(add(first, second));}
-
+                    if (first == null || second == null) { badline = true; }
+                    if (badline == false){ myStack.push(add(first, second)); }
                 } else if (c == '*') {
                     LList first = (LList) myStack.pop();
                     LList second = (LList) myStack.pop();
                     expressionDetails += "* ";
-                    if (first == null || second == null) {badline = true;}
-                    //call mult() on both LLists and push result back into stack;
-                    if (badline==false) {myStack.push(mult(first, second, 0));}
-
+                    if (first == null || second == null) { badline = true; }
+                    //if valid line call mult() function
+                    if (badline == false) {
+                        LList result = mult(first, second, 0);
+                        //reverse result in order to rid LList of any leading 0's
+                        result.reverse();
+                        leadingZeros(result);
+                        //reverse back and push to stack
+                        result.reverse();
+                        myStack.push(result);
+                    }
                 } else if (c == '^') {
                     LList first = (LList) myStack.pop();
                     LList second = (LList) myStack.pop();
-
-                    if (first == null || second == null) {badline = true;}
+                    if (first == null || second == null) { badline = true; }
                     //converts LList to an int
-                    if (badline==false) {
+                    if (badline == false) {
                         first.moveToStart();
                         int expNum = 1;
                         int finalNum = 0;
-                        while (first.isAtEnd()==false) {
+                        while (first.isAtEnd() == false) {
                             finalNum += ((int) first.getValue() * expNum);
                             expNum *= 10;
                             first.next();
                         }
                         //call exp() on both LLists and push result back into stack;
                         myStack.push(exp(second, finalNum));
-
                     }
                     expressionDetails +="^ ";
                 } else {
-                    //If newInput is not " ", "+", "*", or "^", then it should be a number.
-                    //If value is not a leading 0 in number, add it to an Integer and append it to myLList
-                    //if (myLList.length)
-                    /**if (myLList.length() == 0 && c == '0') {
-                        continue;
-                    } else {
-                        //int x = (int) c;
-                        int x = (int) charToInt(c);
-                        myLList.append(x);
-                    }*/
+                    //If newInput is not " ", "+", "*", or "^", then it should be a number. Append() to LList.
                     int x = (int) charToInt(c);
                     myLList.append(x);
                 }
@@ -113,42 +118,45 @@ public class BigNumArithmetic {
             }
             if (badline){
                 finalLine += expressionDetails + "=\n";
-            }else {
-                finalLine += expressionDetails + "= " + toString((LList) myStack.pop()) +"\n";
+            } else {
+                finalLine += expressionDetails + "= " + toString((LList) myStack.pop()) + "\n";
             }
         }
-            return finalLine;
+        return finalLine;
     }
-    /**This function turns the String value read from file to an Integer.
+
+    /**
+     * This function turns the String value read from file to an Integer.
      * Only called on number values read from the file into the program
      * Corresponding Integer values are returned as an int. While any non number chars return null;
-    */
+     * @param x char from file input
+     * @return Object an int if char was a valid number. Otherwise, return null.
+     */
      public static Object charToInt(char x) {
-        if (x=='0') {
+        if (x == '0') {
             return 0;
-        } else if (x=='1'){
+        } else if (x == '1'){
             return 1;
-        } else if (x=='2'){
+        } else if (x == '2'){
             return 2;
-        }else if (x=='3'){
+        } else if (x == '3'){
             return 3;
-        } else if (x=='4'){
+        } else if (x == '4'){
             return 4;
-        }else if (x=='5'){
+        } else if (x == '5'){
             return 5;
-        } else if (x=='6'){
+        } else if (x == '6'){
             return 6;
-        }else if (x=='7'){
+        } else if (x == '7'){
             return 7;
-        } else if (x=='8'){
+        } else if (x == '8'){
             return 8;
-        }else if (x=='9'){
+        } else if (x == '9'){
             return 9;
         } else {
             return null;
         }
     }
-
     /**
      * This function is used to remove any leading zeroes within the LList it is called upon. "00054" will equal "54"
      * This function also prevents LList with only zero values from being removed completely. "00000" will equal "0"

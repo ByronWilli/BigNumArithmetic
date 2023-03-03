@@ -6,8 +6,9 @@ import java.util.Scanner;
 import static org.junit.Assert.*;
 
 /**
- * Byron Williamson Ted Stanton
- * CPSC 340 Project 2
+ * BigNumArithmeticTest() contains multiple test functions for all functions created in the BigNumArithmetic class
+ * @author Byron Williamson Ted Stanton
+ * @version 2023-03-03
  */
 public class BigNumArithmeticTest {
 

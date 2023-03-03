@@ -2,7 +2,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Byron Williamson
+ * Byron Williamson Ted Stanton
  * CPSC 340 Project 2
  */
 public class BigNumArithmeticTest {
@@ -44,5 +44,4 @@ public class BigNumArithmeticTest {
         assertEquals(bn.toString(bn.exp(a,b)), "20" );
 
     }
-
 }

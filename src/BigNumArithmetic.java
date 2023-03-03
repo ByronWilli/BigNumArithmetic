@@ -22,6 +22,8 @@ public class BigNumArithmetic {
         //Initiate LStack And LList objects to go into stack
         LStack myStack = new LStack();
         LList myLList = new LList();
+        //create a String of that will be updated to print expression details
+        String expressionDetails = "";
         //Set the file path to command line input args[0]
         File inputFile = new File(s);
         Scanner fileIn = new Scanner(inputFile);
@@ -47,6 +49,7 @@ public class BigNumArithmetic {
             } else if (newInput.equals("+")){
                 LList first = (LList) myStack.pop();
                 LList second = (LList) myStack.pop();
+                expressionDetails += second.toString() + " + " + first.toString() + " ";
                 //call add() on both LLists and push result back into stack;
                 myStack.push(add(first, second));
             } else if(newInput.equals("*")) {
@@ -55,6 +58,7 @@ public class BigNumArithmetic {
                 int x = 0;
                 //call mult() on both LLists and push result back into stack;
                 myStack.push(mult(first, second , x));
+                expressionDetails += second.toString() + " * " + first.toString() + " ";
             }else if (newInput.equals("^")){
                 LList first = (LList) myStack.pop();
                 LList second = (LList) myStack.pop();
@@ -69,14 +73,20 @@ public class BigNumArithmetic {
                 }
                 //call exp() on both LLists and push result back into stack;
                 myStack.push(exp(second, finalNum));
-
+                expressionDetails += second.toString() + " * " + first.toString() + " ";
             } else {
                 //If newInput is not " ", "+", "*", or "^", then it should be a number.
-                //Change it to an Integer and append it to myLList
-                int x = strToInt(newInput);
-                myLList.append(x);
+                //If value is not a leading 0 in number, add it to an Integer and append it to myLList
+                if (myLList.length() == 0 && newInput.equals("0")){
+                    continue;
+                } else {
+                    int x = strToInt(newInput);
+                    myLList.append(x);
+                }
             }
         }
+        expressionDetails += "= " + myStack.topValue().toString();
+        System.out.println(expressionDetails);
     return s;
     }
     //this function turns the String value read from file to an Integer.

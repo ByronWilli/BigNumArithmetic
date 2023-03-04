@@ -2,6 +2,9 @@ import java.util.NoSuchElementException;
 
 /**
  * List class ADT. Generalize by using "Object" for the element type.
+ * List.java class from previous assignment
+ * @author Byron Williamson Ted Stanton
+ * @version 2023-03-03
  */
 public interface List { // List class ADT
     /**

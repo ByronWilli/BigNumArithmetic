@@ -1,3 +1,8 @@
+/**
+ * Link.java class from previous assignment
+ * @author Byron Williamson Ted Stanton
+ * @version 2023-03-03
+ */
 class Link {         // Singly linked list node class
     private Object e;  // Value for this node
     private Link n;    // Point to next node in list

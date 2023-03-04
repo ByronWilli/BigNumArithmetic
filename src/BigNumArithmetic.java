@@ -8,7 +8,6 @@ import java.util.Scanner;
  * @version 2023-03-03
  */
 public class BigNumArithmetic {
-
     /**
      * main() function reads the file passed in from command line
      * Calls process() to process the input of the file as needed.
@@ -23,13 +22,17 @@ public class BigNumArithmetic {
         }
     }
     /**
-     * Process() is called in the main() method. To run take each input from the file and process it as needed.
-     * numbers are pushed to the stack, while operators call specific functions such as add(), mult(), and exp()
+     * Process() is called in the main() method.
+     * To run take each input from the file and process it as needed.
+     * Numbers are pushed to the stack,
+     * while operators call specific functions,
+     * such as add(), mult(), and exp()
      * to find the answer to the final equation.
-     * A String is returned to main containing the expression details and answer to the equation.
+     * A String is returned to main containing the expression
+     * details and answer to the equation.
      * @param s a string which is passed on the command line
      * @return String which contatins expression details and final answer
-     * @throws FileNotFoundException if the String passed as parameter is not found as a valid file path.
+     * @throws FileNotFoundException if String s is not found a valid file path.
      */
     public static String process(String s) throws FileNotFoundException {
         //Create a String of that will be updated to print.
@@ -44,11 +47,11 @@ public class BigNumArithmetic {
             LList myLList = new LList();
             String expressionDetails = "";
             //create boolean to check for valid line inputs
-            Boolean badline=false;
+            Boolean badline = false;
             //newLine is the char the most recent input read from file
             String newInput = fileIn.nextLine();
             //if line is empty move to next line
-            if (newInput.length() == 0){
+            if (newInput.length() == 0) {
                 continue;
             }
             //Convert newLine to a char array. Then loop through each char
@@ -117,10 +120,10 @@ public class BigNumArithmetic {
                     myLList.append(x);
                 }
             }
-            if (myStack.length() != 1){
-                badline=true;
+            if (myStack.length() != 1) {
+                badline = true;
             }
-            if (badline){
+            if (badline) {
                 finalLine += expressionDetails + "=\n";
             } else {
                 finalLine += expressionDetails + "= " + toString((LList) myStack.pop()) + "\n";
@@ -132,51 +135,53 @@ public class BigNumArithmetic {
     /**
      * This function turns the String value read from file to an Integer.
      * Only called on number values read from the file into the program
-     * Corresponding Integer values are returned as an int. While any non number chars return null;
+     * Corresponding Integer values are returned as an int.
+     * While any non number chars return null;
      * @param x char from file input
-     * @return Object an int if char was a valid number. Otherwise, return null.
+     * @return Object, int if char is a valid number.
      */
      public static Object charToInt(char x) {
         if (x == '0') {
             return 0;
-        } else if (x == '1'){
+        } else if (x == '1') {
             return 1;
-        } else if (x == '2'){
+        } else if (x == '2') {
             return 2;
-        } else if (x == '3'){
+        } else if (x == '3') {
             return 3;
-        } else if (x == '4'){
+        } else if (x == '4') {
             return 4;
-        } else if (x == '5'){
+        } else if (x == '5') {
             return 5;
-        } else if (x == '6'){
+        } else if (x == '6') {
             return 6;
-        } else if (x == '7'){
+        } else if (x == '7') {
             return 7;
-        } else if (x == '8'){
+        } else if (x == '8') {
             return 8;
-        } else if (x == '9'){
+        } else if (x == '9') {
             return 9;
         } else {
             return null;
         }
     }
     /**
-     * This function is used to remove any leading zeroes within the LList it is called upon. "00054" will equal "54"
-     * This function also prevents LList with only zero values from being removed completely. "00000" will equal "0"
-     * This must be used when LList is complete, and before reversing the LList.
-     * This function does not return anything but rather changes the LList
-     * @param myLList
+     * This function removes leading zeroes within the
+     * LList it is called upon. "00054" will equal "54"
+     * LList with only zero values won't be removed completely.
+     * "00000" will equal "0"
+     * Nothing is returned, However, LList is modified
+     * @param myLList LList with no leading 0's
      */
-    public static void leadingZeros(LList myLList){
+    public static void leadingZeros(LList myLList) {
         //Loop through the LList. Move current position to the position "i" each time.
-        for (int i=0; i<myLList.length();i++){
+        for (int i=0; i < myLList.length(); i++) {
             myLList.moveToPos(i);
             //If there is only 1 element in LList, do not change anything. Preventing LLists valued 0 from being erased
             if(myLList.length() == 1){
                 break;
             //If LList length has more than one element, remove Links until you reach a Link with a non-zero value
-            } else if((int) myLList.getValue() == 0) {
+            } else if ((int) myLList.getValue() == 0) {
                 myLList.remove();
                 //decrement i back to start of LList
                 i--;
@@ -188,26 +193,27 @@ public class BigNumArithmetic {
     }
 
     /**
-     * add()
-     * @param a
-     * @param b
-     * @return
+     * This function is for the addition of two LLists.
+     * Is called in process() when "+" is read from file.
+     * @param a LList a
+     * @param b LList b
+     * @return LList containing result of adding LLists a and b
      */
-    public static LList add(LList a, LList b){
+    public static LList add(LList a, LList b) {
         LList c = new LList();
         //handle adding zero
-        if ((int)a.get(0) == 0&&a.length()==1){return b;}
-        if ((int)b.get(0) == 0&&b.length()==1){return a;}
+        if ((int)a.get(0) == 0 && a.length() == 1) { return b; }
+        if ((int)b.get(0) == 0 && b.length() == 1) { return a; }
         // Append zeros to the shorter number until numbers are the same size
-        if(a.length()>b.length()){
-            int i = a.length()-b.length();
+        if(a.length() > b.length()) {
+            int i = a.length() - b.length();
             for (int j=0; j < i; j++) {
                 b.append(0);
             }
         }
-        if(b.length()>a.length()){
-            int i = b.length()-a.length();
-            for (int j=0; j < i; j++) {
+        if(b.length() > a.length()) {
+            int i = b.length() - a.length();
+            for (int j = 0; j < i; j++) {
                 a.append(0);
             }
         }
@@ -216,9 +222,9 @@ public class BigNumArithmetic {
         for (int i = 0; i < a.length(); i++) {
             int t = (int)a.get(i) + (int) b.get(i) + r;
             r = 0;
-            if (t>9){
-                t-=10;
-                r=1;
+            if (t > 9) {
+                t -= 10;
+                r = 1;
             }
             c.append(t);
         }
@@ -230,16 +236,17 @@ public class BigNumArithmetic {
     }
 
     /**
-     * mult()
-     * @param a
-     * @param b
-     * @param i
+     * This function is for the multiplication of two LLists.
+     * Is called in process() when "*" is read from file.
+     * @param a LList a
+     * @param b LList b
+     * @param i int = 0 used to check if LList's are empty
      * @return
      */
     public static LList mult(LList a, LList b, int i){
         LList c = new LList();
         // If at the end of the list return 1
-        if (i == a.length()){
+        if (i == a.length()) {
             c.append(0);
             return c;
         }
@@ -250,8 +257,8 @@ public class BigNumArithmetic {
         // multiplies the digit of the first number equal to the counter int by each digit of the second
         int r = 0;
         for (int j = 0; j < b.length(); j++) {
-            int t =((int)a.get(i))*((int)b.get(j)) + r;
-            r=0;
+            int t = ((int)a.get(i)) * ((int)b.get(j)) + r;
+            r = 0;
             while (t > 9) {
                 t -= 10;
                 r++;
@@ -266,44 +273,46 @@ public class BigNumArithmetic {
         }
         i++;
         // Returns a recursive call, addition (linked list, multiplication(original list, other original list, digit +1))
-        return add(c, mult(a,b,i));
+        return add(c, mult(a, b, i));
     }
 
     /**
-     * exp()
-     * @param a
-     * @param b
-     * @return
+     * This function is for the exponentiation of two LLists.
+     * Is called in process() when "^" is read from file.
+     * @param a LList base number
+     * @param b int. LList a*10 to the power of b (which came from values within LList)
+     * @return resulting values from xponentiation of two LLists.
      */
-    public static LList exp(LList a, int b){
+    public static LList exp(LList a, int b) {
         if (b==0) {
             //if the exponent is 0, return 1
             LList c = new LList();
             c.append(1);
             return c;
-        }else if (b==1) {
+        } else if (b == 1) {
             // If the exponent = 1, return the number
             return a;
 
-        } else if (b % 2 == 1){
+        } else if (b % 2 == 1) {
             // if the exponent is odd, return mult(x, exp(x,n-1))
             b--;
-            return mult(a,exp(a,b), 0);
+            return mult(a, exp(a, b), 0);
         }
         // otherwise, return mult (exp(x, n/2) exp(x, n/2))
         b /= 2;
-        return mult(exp(a, b),exp(a, b), 0);
+        return mult(exp(a, b), exp(a, b), 0);
     }
 
     /**
-     * toString ()
-     * Turns an LList into a string for testing purposes
-     * @param a
-     * @return
+     * This method turns elements within a LList into a String
+     * Used for expression details and also useful in testing purposes.
+     * @param a LList with Objects to be put into String
+     * @return s The resulting String
      */
-    public static String toString(LList a){
+    public static String toString(LList a) {
         String s = "";
-        for (int i = a.length()-1; i > -1; i--) {
+        //loop through LList and append value into String 's'
+        for (int i = a.length() - 1; i > -1; i--) {
             s += a.get(i);
         }
         return s;

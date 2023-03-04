@@ -1,7 +1,9 @@
 import java.util.NoSuchElementException;
 
 /**
- *  Linked list implementation
+ * Linked list implementation from previous assignment
+ * @author Byron Williamson Ted Stanton
+ * @version 2023-03-03
  */
 class LList implements List {
     private Link head;         // Pointer to list header
@@ -11,7 +13,7 @@ class LList implements List {
 
     /**
      * LList constructor 1
-     * @param size
+     * @param size the initial size of LList
      */
     LList(int size) { this(); }     // Constructor -- Ignore size
 
@@ -31,6 +33,8 @@ class LList implements List {
 
     /**
      * Insert "it" at current position
+     * @param it Object to be inserted
+     * @return true when complete
      */
     public boolean insert(Object it) {
         curr.setNext(new Link(curr.element(), curr.next()));
@@ -42,8 +46,8 @@ class LList implements List {
 
     /**
      * Append "it" to list
-     * @param it
-     * @return
+     * @param it Object to be appended
+     * @return true when complete
      */
     public boolean append(Object it) {
         tail.setNext(new Link(null));
@@ -55,8 +59,8 @@ class LList implements List {
 
     /**
      * Remove and return current element
-     * @return
-     * @throws NoSuchElementException
+     * @return Object which was removed
+     * @throws NoSuchElementException if nothing to remove
      */
     public Object remove () throws NoSuchElementException {
         if (curr == tail) // Nothing to remove
@@ -97,15 +101,15 @@ class LList implements List {
     public void next() { if (curr != tail) curr = curr.next(); }
 
     /**
-     * length()
-     * @return
+     * find length of LList
+     * @return int listSize
      */
     public int length() { return listSize; } // Return list length
 
 
     /**
      * Return the position of the current element
-     * @return
+     * @return int of current position in LList
      */
     public int currPos() {
         Link temp = head.next();
@@ -117,6 +121,8 @@ class LList implements List {
 
     /**
      * Move down list to "pos" position
+     * @param pos int position to be moved to in LList
+     * @return true if valid position in LList. Otherwise, false
      */
     public boolean moveToPos(int pos) {
         if ((pos < 0) || (pos > listSize)) return false;
@@ -126,13 +132,15 @@ class LList implements List {
     }
 
     /**
-     *  Return true if current position is at end of the list
-     * @return
+     * This fynction checks if Link is at the end of LList
+     * @return Return true if current position is at end of the list
      */
     public boolean isAtEnd() { return curr == tail; }
 
     /**
-     * Return current element value.
+     * This function returns current element value
+     * @return Object -> current element value
+     * @throws NoSuchElementException
      */
     public Object getValue() throws NoSuchElementException {
         if (curr == tail) // No current element
@@ -143,7 +151,7 @@ class LList implements List {
 
     /**
      * Check if the list is empty
-     * @return
+     * @return true if empty. Otherwise, false
      */
     public boolean isEmpty() { return listSize == 0; }
 

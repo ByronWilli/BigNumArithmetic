@@ -1,30 +1,27 @@
 import org.junit.Test;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import static org.junit.Assert.*;
-
 /**
  * BigNumArithmeticTest() contains multiple test functions for all functions created in the BigNumArithmetic class
  * @author Byron Williamson Ted Stanton
  * @version 2023-03-03
  */
 public class BigNumArithmeticTest {
-
     /**
      * Tests the process function
      */
     @Test
-    public void processTest(){
+    public void processTest() {
         BigNumArithmetic bn = new BigNumArithmetic();
         File in = new File("test1.out.txt");
-        Scanner fileIn = null;
+        Scanner fileIn;
         String output = "";
         try {
             fileIn = new Scanner(in);
             while(fileIn.hasNextLine()){
-                output+= fileIn.nextLine() + "\n";
+                output += fileIn.nextLine() + "\n";
             }
         } catch (FileNotFoundException e) {
             System.out.println("Cannot find output test file");
@@ -41,17 +38,15 @@ public class BigNumArithmeticTest {
      * Tests the charToInt function with multiple different values. 0,1,9 and a non-relevant value such as x
      */
     @Test
-    public void charToIntTest(){
-        BigNumArithmetic bn = new BigNumArithmetic();
+    public void charToIntTest() {
         char zero = '0';
         char one = '1';
         char nine = '9';
         char wrongValue = 'x';
-        assertEquals(0,bn.charToInt(zero));
-        assertEquals(1,bn.charToInt(one));
-        assertEquals(9,bn.charToInt(nine));
-        assertEquals(null,bn.charToInt(wrongValue));
-
+        assertEquals(0, BigNumArithmetic.charToInt(zero));
+        assertEquals(1, BigNumArithmetic.charToInt(one));
+        assertEquals(9, BigNumArithmetic.charToInt(nine));
+        assertEquals(null, BigNumArithmetic.charToInt(wrongValue));
     }
 
     /**
@@ -63,8 +58,7 @@ public class BigNumArithmeticTest {
      * Test 5 multipleZeros = 0,0,0,0 is changed to 0 all other links are removed
      */
     @Test
-    public void leadingZerosTest(){
-        BigNumArithmetic bn = new BigNumArithmetic();
+    public void leadingZerosTest() {
         //create a LList to test with a mix of 0's and non-zero integers.
         LList mix = new LList();
         mix.append(0);
@@ -75,7 +69,7 @@ public class BigNumArithmeticTest {
         mix.append(5);
         //Call leadingZeros, test LList's length, and remaining 3 Link values
         //This should only remove the first 3 zeros. because those are the only leading zeroes in LList.
-        bn.leadingZeros(mix);
+        BigNumArithmetic.leadingZeros(mix);
         assertEquals(3,mix.length());
         assertEquals(9, mix.get(0));
         assertEquals(0, mix.get(1));
@@ -86,7 +80,7 @@ public class BigNumArithmeticTest {
         multipleNonZero.append(1);
         multipleNonZero.append(2);
         //Call leadingZeros, test LList's length, there are no leading zeros so nothing in LList should have changed
-        bn.leadingZeros(multipleNonZero);
+        BigNumArithmetic.leadingZeros(multipleNonZero);
         assertEquals(2,multipleNonZero.length());
         assertEquals(1, multipleNonZero.get(0));
         assertEquals(2, multipleNonZero.get(1));
@@ -95,7 +89,7 @@ public class BigNumArithmeticTest {
         LList oneNonZero = new LList();
         oneNonZero.append(5);
         //call leadingZeros, test LList's length, and remaining Link's value
-        bn.leadingZeros(oneNonZero);
+        BigNumArithmetic.leadingZeros(oneNonZero);
         assertEquals(1,oneNonZero.length());
         assertEquals(5, oneNonZero.get(0));
 
@@ -103,7 +97,7 @@ public class BigNumArithmeticTest {
         LList oneZero = new LList();
         oneZero.append(0);
         //call leadingZeros, test LList's length, and remaining Link's value
-        bn.leadingZeros(oneZero);
+        BigNumArithmetic.leadingZeros(oneZero);
         assertEquals(1,oneZero.length());
         assertEquals(0, oneZero.get(0));
 
@@ -114,31 +108,30 @@ public class BigNumArithmeticTest {
         multipleZeros.append(0);
         multipleZeros.append(0);
         //call leadingZeros, test LList's length, and the remaining Link's value
-        bn.leadingZeros(multipleZeros);
-        assertEquals(1,multipleZeros.length());
+        BigNumArithmetic.leadingZeros(multipleZeros);
+        assertEquals(1, multipleZeros.length());
         assertEquals(0, multipleZeros.get(0));
     }
-
 
     /**
      * Tests the addition function
      */
      @Test
-    public void addTest(){
+    public void addTest() {
         BigNumArithmetic bn = new BigNumArithmetic();
         LList a = new LList();
         LList b = new LList();
         a.append(9);
         a.append(9);
         b.append(1);
-        assertEquals("100", bn.toString(bn.add(a,b)));
+        assertEquals("100", bn.toString(bn.add(a, b)));
     }
 
     /**
      * multTest()
      */
     @Test
-    public void multTest(){
+    public void multTest() {
         BigNumArithmetic bn = new BigNumArithmetic();
         LList a = new LList();
         LList b = new LList();
@@ -147,24 +140,23 @@ public class BigNumArithmeticTest {
         b.append(3);
         b.append(2);
         b.append(1);
-        assertEquals("12177",  bn.toString(bn.mult(a,b, 0)));
+        assertEquals("12177",  bn.toString(bn.mult(a, b, 0)));
     }
 
     /**
      * expTest()
      */
     @Test
-    public void expTest(){
+    public void expTest() {
         BigNumArithmetic bn = new BigNumArithmetic();
         LList a = new LList();
         int b = 5;
         a.append(0);
         a.append(2);
-        assertEquals(bn.toString(bn.exp(a,b)), "3200000" );
+        assertEquals(bn.toString(bn.exp(a, b)), "3200000" );
         b = 4;
-        assertEquals(bn.toString(bn.exp(a,b)), "160000" );
+        assertEquals(bn.toString(bn.exp(a, b)), "160000" );
         b = 1;
-        assertEquals(bn.toString(bn.exp(a,b)), "20" );
-
+        assertEquals(bn.toString(bn.exp(a, b)), "20" );
     }
 }

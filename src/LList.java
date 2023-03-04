@@ -156,7 +156,7 @@ class LList implements List {
     public boolean isEmpty() { return listSize == 0; }
 
     /**
-     * reverses the list
+     * Reverses the list
      */
     public void reverse(){
         if (listSize>1) {

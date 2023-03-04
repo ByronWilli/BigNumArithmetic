@@ -47,6 +47,10 @@ public class BigNumArithmetic {
             Boolean badline=false;
             //newLine is the char the most recent input read from file
             String newInput = fileIn.nextLine();
+            //if line is empty move to next line
+            if (newInput.length() == 0){
+                continue;
+            }
             //Convert newLine to a char array. Then loop through each char
             char[] line = newInput.toCharArray();
             for (int i = 0; i < newInput.length(); i++) {

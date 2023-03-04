@@ -1,6 +1,7 @@
 
 /**
  * Linked stack implementation
+ * @author Byron Williamson Ted Stanton
   */
 class LStack implements Stack {
     private Link top;               // Pointer to first element

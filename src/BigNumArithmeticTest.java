@@ -45,7 +45,7 @@ public class BigNumArithmeticTest {
         bn.main(args);
     }
     /**
-     * Tests the process function
+     * Tests process() on example input and output file given in assignment description.
      */
     @Test
     public void processTest() {
@@ -63,6 +63,7 @@ public class BigNumArithmeticTest {
         }
 
         try {
+            //call process() on input-file. This should be equal to result that was read from test1.out.txt
             assertEquals(bn.process("input-file"), output);
         } catch (FileNotFoundException e) {
             System.out.println("Cannot find input test file");
@@ -88,6 +89,7 @@ public class BigNumArithmeticTest {
         }
 
         try {
+            //call process() on test2-in. This should be equal to result that was read from test2-out
             assertEquals(bn.process("test2-in"), output);
         } catch (FileNotFoundException e) {
             System.out.println("Cannot find input test file");
@@ -113,6 +115,7 @@ public class BigNumArithmeticTest {
         }
 
         try {
+            //call process() on emptyTest-in.txt. This should be equal to result that was read from emptyTest.out.txt
             assertEquals(bn.process("emptyTest-in.txt"), output);
         } catch (FileNotFoundException e) {
             System.out.println("Cannot find input test file");

@@ -31,7 +31,7 @@ public class BigNumArithmetic {
      * A String is returned to main containing the expression
      * details and answer to the equation.
      * @param s a string which is passed on the command line
-     * @return String which contatins expression details and final answer
+     * @return String which contains expression details and final answer
      * @throws FileNotFoundException if String s is not found a valid file path.
      */
     public static String process(String s) throws FileNotFoundException {
@@ -114,8 +114,8 @@ public class BigNumArithmetic {
                         myStack.push(exp(second, finalNum));
                     }
                     expressionDetails +="^ ";
-                } else {
-                    //If newInput is not " ", "+", "*", or "^", then it should be a number. Append() to LList.
+                } else if (Character.isDigit(c)){
+                    //If newInput is a number than it should be appended to LList.
                     int x = (int) charToInt(c);
                     myLList.append(x);
                 }
@@ -124,7 +124,7 @@ public class BigNumArithmetic {
                 badline = true;
             }
             if (badline) {
-                finalLine += expressionDetails + "=\n";
+                finalLine += newInput + " =\n";
             } else {
                 finalLine += expressionDetails + "= " + toString((LList) myStack.pop()) + "\n";
             }
